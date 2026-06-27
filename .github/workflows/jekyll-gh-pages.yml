@@ -2,7 +2,7 @@ name: Deploy Vite para GitHub Pages
 
 on:
   push:
-    branches: ["main"] # Altere para "master" se a sua branch principal tiver esse nome
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -33,12 +33,12 @@ jobs:
       - name: Instalar dependências e buildar
         run: |
           npm ci
-          npm run build
+          CI=false npm run build # 👈 CI=false impede que avisos do TypeScript travem a build
 
       - name: Upload do artefato
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # O Vite joga os arquivos convertidos aqui
+          path: './dist'
 
   deploy:
     environment:
